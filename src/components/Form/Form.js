@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useCallback} from "react"
 import "./Form.sass"
 import InputMask from 'react-input-mask';
 import useInput from "../../hooks/useInput";
@@ -13,12 +13,13 @@ export default function Form(props) {
     const phoneInput = useInput("", {isEmpty: true, isMaskMatch: true  })
     const messageInput = useInput("", {isEmpty: true})
 
-    const handleReset = () => {
-        nameInput.onChange()
-        emailInput.onChange()
-        phoneInput.onChange()
-        messageInput.onChange()
-    }
+    const handleReset = useCallback(() => {
+            nameInput.onChange()
+            emailInput.onChange()
+            phoneInput.onChange()
+            messageInput.onChange()
+        }, []);
+
 
     return (
         <div className="container">
