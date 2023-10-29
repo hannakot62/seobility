@@ -1,0 +1,72 @@
+@import "/src/styles/colors.sass"
+
+@mixin btn
+  padding: 10px
+  border: none
+  border-radius: 10px
+  color: $isabelline
+  font-family: $primary-font
+
+
+.container
+  background-color: $black-olive
+  width: 500px
+  display: flex
+  flex-direction: column
+  border-radius: 10px
+  border: 2px solid $light-brown
+  color: $light-brown
+  position: absolute
+  top: 50%
+  left: 50%
+  margin-right: -50%
+  transform: translate(-50%, -50%)
+  padding: 15px
+
+  .submit
+    @include btn
+    background-color: $tomato
+
+
+  .reset
+    @include btn
+    background-color: $light-brown
+    color: $black-olive
+
+  .submit:hover, .reset:hover
+    cursor: pointer
+
+
+  .buttons
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-around
+    margin-top: 30px
+
+
+  .fieldContainer
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    margin: 10px
+
+    input, textarea
+      padding: 5px
+      height: 20px
+      width: 250px
+      background-color: $platinum
+      border: 1px solid $black-olive
+      border-radius: 5px
+      font-family: $primary-font
+      color: $black-olive
+
+
+    textarea
+      height: 50px
+
+    input
+      display: flex
+      flex-direction: row
+      align-items: center
+

@@ -1,12 +1,10 @@
 import React from 'react';
-import Button from "./components/Button/Button";
+import Form from "./components/Form/Form";
 
 function App() {
     return (
         <div>
-            aaa
-            <h1>Hello!</h1>
-            <Button/>
+            <Form/>
         </div>
     );
 }
