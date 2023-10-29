@@ -1,7 +1,8 @@
-import React, {useCallback} from "react"
+import React, {useCallback, useEffect, useState} from "react"
 import "./Form.sass"
 import InputMask from 'react-input-mask';
 import useInput from "../../hooks/useInput";
+import handleSend from "../../helpers/handleSend";
 
 
 export default function Form(props) {
@@ -10,20 +11,38 @@ export default function Form(props) {
 
     const nameInput = useInput("", {isEmpty: true})
     const emailInput = useInput("", {isEmpty: true, isEmail: true})
-    const phoneInput = useInput("", {isEmpty: true, isMaskMatch: true  })
+    const phoneInput = useInput("", {isEmpty: true, isMaskMatch: true})
     const messageInput = useInput("", {isEmpty: true})
 
+    const [isValid, setIsValid] = useState(false);
+    const [responseMessage, setResponseMessage] = useState("");
+
+    useEffect(() => {
+        if (nameInput.isValid && emailInput.isValid && phoneInput.isValid && messageInput.isValid) {
+            setIsValid(true)
+        } else setIsValid(false)
+        console.log(nameInput, emailInput, phoneInput, messageInput)
+    }, [nameInput.isValid, emailInput.isValid, phoneInput.isValid, messageInput.isValid]);
+
+
     const handleReset = useCallback(() => {
-            nameInput.onChange()
-            emailInput.onChange()
-            phoneInput.onChange()
-            messageInput.onChange()
-        }, []);
+        nameInput.onChange()
+        emailInput.onChange()
+        phoneInput.onChange()
+        messageInput.onChange()
+    }, []);
+
+    const handleSubmit = async (event) => {
+        const response = await handleSend(event, isValid, [nameInput, emailInput, phoneInput, messageInput])
+        setResponseMessage(response)
+    }
 
 
     return (
         <div className="container">
+            <div className="messageBox">{responseMessage}</div>
             <form>
+
                 <div className="fieldContainer">
                     <label htmlFor="name">Enter your name: </label>
                     <div className='inputContainer'>
@@ -32,10 +51,12 @@ export default function Form(props) {
                                onChange={(e) => nameInput.onChange(e)}
                                onBlur={() => nameInput.onBlur()}
                                className={nameInput.errorText ? "error" : ""}
+                               autoComplete={"off"}
                         />
                         <div className='errorContainer'>{nameInput.errorText}</div>
                     </div>
                 </div>
+
 
                 <div className="fieldContainer">
                     <label htmlFor="email">Enter your email: </label>
@@ -46,10 +67,12 @@ export default function Form(props) {
                                onChange={(e) => emailInput.onChange(e)}
                                onBlur={() => emailInput.onBlur()}
                                className={emailInput.errorText ? "error" : ""}
+                               autoComplete={"off"}
                         />
                         <div className='errorContainer'>{emailInput.errorText}</div>
                     </div>
                 </div>
+
 
                 <div className="fieldContainer">
                     <label htmlFor="tel">Enter your phone number: </label>
@@ -66,6 +89,7 @@ export default function Form(props) {
                     </div>
                 </div>
 
+
                 <div className="fieldContainer">
                     <label htmlFor="message">Enter your message: </label>
                     <div className='inputContainer'>
@@ -81,7 +105,8 @@ export default function Form(props) {
 
                 <div className="buttons">
                     <input className="reset" type="reset" value="Reset" onClick={() => handleReset()}/>
-                    <input className="submit" type="submit" value="Submit!"/>
+                    <input className="submit" type="submit" value="Submit!" disabled={!isValid}
+                           onClick={(e) => handleSubmit(e)}/>
                 </div>
 
             </form>

@@ -28,57 +28,75 @@ export default function useInputValidation(currentValue, isTouched, validators) 
     useEffect(() => {
         for (const validator in validators) {
             switch (validator) {
+
                 case "isEmpty": {
                     const value = currentValue.trim()
-                    if (value && isTouched) setIsEmptyError(false)
-                    else if(isTouched) {
-                        console.log("empty error")
+                    if (value) setIsEmptyError(false)
+                    else if (isTouched) {
                         setIsEmptyError(true);
                         setErrorText(errorsConst.isEmpty)
                     }
                     break
                 }
+
+
                 case "isEmail": {
-                    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(currentValue)) setIsEmailError(false)
-                    else if (isTouched){
+                    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(currentValue)) {
+                        setIsEmailError(false)
+                        setIsEmptyError(false)
+                    } else if (isTouched) {
                         setIsEmailError(true)
                         setErrorText(errorsConst.isEmail)
                     }
                     break
                 }
+
+
                 case "isExactLength": {
-                    if (currentValue.length !== validators[validator] && isTouched) {
+                    if (currentValue.length === validators[validator]) {
+                        setIsExactLengthError(false)
+                        setIsEmptyError(false)
+                    } else if (isTouched) {
                         setIsExactLengthError(true)
                         setErrorText(errorsConst.isExactLength)
-                    } else setIsExactLengthError(false)
+                    }
                     break
                 }
-                case "isMaskMatch":{
-                    if(((currentValue.toString().at(-1)==="_")||!currentValue) && isTouched) {
+
+
+                case "isMaskMatch": {
+                    if (!currentValue.includes("_") && currentValue) {
+                        setIsMaskMatchError(false)
+                        setIsEmptyError(false)
+                    } else if (currentValue) {
                         setIsMaskMatchError(true)
+                        setIsEmptyError(false)
                         setErrorText(errorsConst.isMaskMatchError)
                     }
-                    else setIsMaskMatchError(false)
                     break
                 }
 
             }
         }
-
     }, [currentValue])
 
     useEffect(() => {
-        if (isEmailError || isEmptyError||isMaskMatchError||isExactLengthError) setIsValid(false)
-        else setIsValid(true)
-    }, [isEmailError, isEmptyError,isMaskMatchError,isExactLengthError]);
+        if (isEmailError || isEmptyError || isMaskMatchError || isExactLengthError) {
+            setIsValid(false)
+        }
+        else {
+            setIsValid(true)
+        }
+    }, [isEmailError, isEmptyError, isMaskMatchError, isExactLengthError]);
 
-    useEffect(()=>{
-        if(isValid) setErrorText("")
-    },[isValid])
+
+    useEffect(() => {
+        if (isValid) setErrorText("")
+    }, [isValid])
 
 
-    const clearAll = ()=>{
-        setIsEmptyError(true    )
+    const clearAll = () => {
+        setIsEmptyError(true)
         setIsEmailError(false)
         setIsExactLengthError(false)
         setIsMaskMatchError(false)

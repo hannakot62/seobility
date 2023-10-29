@@ -27,7 +27,6 @@
     @include btn
     background-color: $tomato
 
-
   .reset
     @include btn
     background-color: $light-brown
@@ -36,6 +35,9 @@
   .submit:hover, .reset:hover
     cursor: pointer
 
+  .submit:disabled
+    background-color: $tomato-light
+    cursor: auto
 
   .buttons
     display: flex
@@ -86,3 +88,15 @@
       .error
         border: 2px solid red
 
+
+
+
+
+.messageBox
+  height: 30px
+  color: $vivid_sky
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  width: 100%

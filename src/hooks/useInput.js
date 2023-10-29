@@ -1,11 +1,10 @@
-import React, {useDeferredValue, useState} from "react";
+import React, { useState} from "react";
 import useInputValidation from "./useInputValidation";
 
 export default function useInput(initialValue, validators){
     const [value, setValue] = useState(initialValue)
     const [isTouched, setIsTouched] = useState(false)
-    const deferredValue = useDeferredValue(value)
-    const validation = useInputValidation(deferredValue, isTouched, validators)
+    const validation = useInputValidation(value, isTouched, validators)
 
     const onChange = (event) =>{
         setValue(event?event.target.value:"")
@@ -21,6 +20,7 @@ export default function useInput(initialValue, validators){
         value,
         onChange,
         onBlur,
-        ...validation
+        setIsTouched,
+        ...validation,
     }
 }

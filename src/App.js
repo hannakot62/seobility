@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import Form from "./components/Form/Form";
 
 function App() {
     return (
-        <div>
-            <Form/>
-        </div>
+        <StrictMode>
+            <div>
+                <Form/>
+            </div>
+        </StrictMode>
     );
 }
 
