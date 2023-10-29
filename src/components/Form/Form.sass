@@ -1,4 +1,4 @@
-@import "/src/styles/colors.sass"
+@import "../../styles/const"
 
 @mixin btn
   padding: 10px
@@ -51,22 +51,38 @@
     justify-content: space-between
     margin: 10px
 
-    input, textarea
-      padding: 5px
-      height: 20px
-      width: 250px
-      background-color: $platinum
-      border: 1px solid $black-olive
-      border-radius: 5px
-      font-family: $primary-font
-      color: $black-olive
-
-
-    textarea
-      height: 50px
-
-    input
+    .inputContainer
       display: flex
-      flex-direction: row
-      align-items: center
+      flex-direction: column
+
+      .errorContainer
+        height: 10px
+        color: red
+        font-size: 0.6em
+
+
+      input, textarea
+        padding: 5px
+        height: 20px
+        width: 250px
+        background-color: $platinum
+        border: 2px solid $black-olive
+        border-radius: 5px
+        font-family: $primary-font
+        color: $black-olive
+
+
+      //textarea
+      //  height: 70px
+      //  resize: none
+      //
+      //input
+      //  display: flex
+      //  flex-direction: row
+      //  align-items: center
+
+
+
+      .error
+        border: 2px solid red
 
