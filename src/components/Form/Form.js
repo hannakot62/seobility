@@ -21,7 +21,6 @@ export default function Form(props) {
         if (nameInput.isValid && emailInput.isValid && phoneInput.isValid && messageInput.isValid) {
             setIsValid(true)
         } else setIsValid(false)
-        console.log(nameInput, emailInput, phoneInput, messageInput)
     }, [nameInput.isValid, emailInput.isValid, phoneInput.isValid, messageInput.isValid]);
 
 

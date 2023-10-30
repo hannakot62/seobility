@@ -1,7 +1,24 @@
-@import "const"
+@import "const.sass"
 
 
 body
   background-color: $black-olive
   color: $isabelline
   font-family: $primary-font
+
+.App
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+.openBtn
+  color: $vivid-sky
+  font-family: $primary-font
+  background-color: transparent
+  text-decoration: underline
+  border: none
+  margin-top: 20px
+
+.openBtn:hover
+  cursor: pointer
