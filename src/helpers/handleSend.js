@@ -13,6 +13,7 @@ export default  async  function handleSend(event, isValid, fields){
                     })
                 })
             let json = await response.json()
+            console.log(json)
             fields.forEach(field=>{
                 field.onChange("")
                 field.setIsTouched(false)
